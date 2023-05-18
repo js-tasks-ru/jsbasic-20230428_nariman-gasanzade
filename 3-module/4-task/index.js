@@ -1,9 +1,12 @@
 function showSalary(users, age) {
-  const showSalary = (users, age) => {
-    const filteredUsers = users.filter(user => user.age <= age);
-    const salaries = filteredUsers.map(user => `${user.name}: ${user.salary}`);
-    return salaries.join('\n');
-  };// ваш код...
+    let result = '';
+    for (let i = 0; i < users.length; i++) {
+      let user = users[i];
+      if (user.age <= age) {
+        result += `${user.name}, ${user.balance}\n`;
+      }
+    }
+    return result.trim(); // ваш код...
 }
 
 let user1 = {
