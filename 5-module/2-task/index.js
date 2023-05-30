@@ -1,10 +1,7 @@
 function toggleText() {
-  const text = document.querySelector('#text');
-  const button = document.querySelector('.toggle-text-button');
+  const toggleText = () => {
+    const text = document.getElementById('text');
+    text.toggleAttribute('hidden');
+  }
   
-  button.addEventListener('click', () => {
-    text.hidden = !text.hidden;
-  });// ваш код...
-}
-
-toggleText();
+  document.querySelector('.toggle-text-button').addEventListener('click', toggleText);}

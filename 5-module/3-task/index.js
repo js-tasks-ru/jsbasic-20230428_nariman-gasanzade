@@ -1,45 +1,35 @@
 function initCarousel() {
-  const inner = document.querySelector('.carousel__inner');
-  const slides = document.querySelectorAll('.carousel__slide');
-  const rightButton = document.querySelector('.carousel__arrow_right');
-  const leftButton = document.querySelector('.carousel__arrow_left');
-  const slideWidth = slides[0].offsetWidth;
-  let currentSlideIndex = 0;
+  let arrowRight = document.querySelector(".carousel__arrow_right");
+  let arrowLeft = document.querySelector(".carousel__arrow_left");
+  let carouselInnerWidth = document.querySelector(".carousel__inner").offsetWidth;
+  let countSlide = document.querySelectorAll('.carousel__slide').length;
+  let activeIndex = 0;
 
-  function showSlide() {
-    inner.style.transform = `translateX(-${slideWidth * currentSlideIndex}px)`;
+  setArrow(activeIndex, arrowRight, arrowLeft, countSlide);
 
-    if (currentSlideIndex === 0) {
-      leftButton.style.display = 'none';
-      rightButton.style.display = '';
-    } else if (currentSlideIndex === slides.length - 1) {
-      leftButton.style.display = '';
-      rightButton.style.display = 'none';
-    } else {
-      leftButton.style.display = '';
-      rightButton.style.display = '';
-    }
+  arrowRight.addEventListener( "click", () => {
+    activeIndex++;
+    document.querySelector(".carousel__inner").style.transform = `translateX(-${activeIndex * carouselInnerWidth}px)`;
+    setArrow(activeIndex, arrowRight, arrowLeft, countSlide);
+  });
+
+  arrowLeft.addEventListener( "click", () => {
+    activeIndex--;
+    document.querySelector(".carousel__inner").style.transform = `translateX(-${activeIndex * carouselInnerWidth}px)`;
+    setArrow(activeIndex, arrowRight, arrowLeft, countSlide);
+  });
+};
+
+function setArrow(activeIndex, arrowRight, arrowLeft, countSlide) {
+  if (activeIndex === 0) {
+    arrowLeft.style.display = 'none';
+  } else {
+    arrowLeft.style.display = '';
   }
 
-  function nextSlide() {
-    if (currentSlideIndex < slides.length - 1) {
-      currentSlideIndex++;
-      showSlide();
-    }
+  if (activeIndex >= countSlide -1) {
+    arrowRight.style.display = 'none';
+  } else {
+    arrowRight.style.display = '';
   }
-
-  function previousSlide() {
-    if (currentSlideIndex > 0) {
-      currentSlideIndex--;
-      showSlide();
-    }
-  }
-
-  leftButton.style.display = 'none';
-  rightButton.addEventListener('click', nextSlide);
-  leftButton.addEventListener('click', previousSlide);// ваш код...
-}
-
-initCarousel();
-
-
+};
